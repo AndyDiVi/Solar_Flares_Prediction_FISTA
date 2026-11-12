@@ -1,5 +1,7 @@
 # Laboratory 2 – Solar Flare Prediction using FISTA and LASSO
 
+<img width="900" height="776" alt="sdo_20130411-M6flare-orig_900c" src="https://github.com/user-attachments/assets/3c8dedb7-48ec-4caa-b71b-491069e991db" />
+
 **Authors:** Di Via & Hiller-Szala
 
 ## Overview
@@ -41,9 +43,9 @@ The laboratory is divided into three main steps.
 
 We formulate the learning problem as a LASSO-regularized least squares minimization problem:
 
-\[
+$$
 \min_{\beta}\frac{1}{2}\|X\beta-y\|_2^2+\lambda\|\beta\|_1
-\]
+$$
 
 The optimization problem is solved using FISTA, which combines proximal gradient descent with an acceleration mechanism.
 
@@ -59,10 +61,10 @@ The implementation includes:
 | Parameter | Value |
 |---|---:|
 | Initial coefficients | Zero vector |
-| Regularization parameter (\(\lambda\)) | 0.05 |
-| Step size (\(\gamma\)) | \(1/\|X^TX\|_2\) |
-| Tolerance | \(10^{-6}\) |
-| Maximum iterations | 5000 |
+| Regularization parameter ($\lambda$) | $0.05$ |
+| Step size ($\gamma$) | $1/\|X^TX\|_2$ |
+| Tolerance | $10^{-6}$ |
+| Maximum iterations | $5000$ |
 
 The algorithm converges in **2553 iterations**, producing a coefficient vector with 2 zero components.
 
@@ -74,9 +76,9 @@ We evaluate 100 thresholds over the range of training predictions and select the
 
 The TSS is particularly suitable for imbalanced datasets and is defined as:
 
-\[
+$$
 TSS = \frac{TP}{TP+FN}+\frac{TN}{TN+FP}-1
-\]
+$$
 
 We also compute Accuracy to assess the overall proportion of correctly classified observations.
 
@@ -84,13 +86,14 @@ We also compute Accuracy to assess the overall proportion of correctly classifie
 
 | Metric | Value |
 |---|---:|
-| Optimal threshold | 0.1415 |
-| Maximum TSS | 0.7294 |
-| Accuracy | 91.00% |
+| Optimal threshold | $0.1415$ |
+| Maximum TSS | $0.7294$ |
+| Accuracy | $91.00\%$ |
 
 The confusion matrix at the optimal threshold reports:
-- 6 false positives.
-- 3 false negatives.
+
+- $6$ false positives.
+- $3$ false negatives.
 
 In this application, false positives are preferable to false negatives, since a predicted flare can be manually verified, whereas a missed flare may have more serious consequences.
 
@@ -100,13 +103,13 @@ Finally, we apply the trained model to the unseen test observation recorded on A
 
 The prediction is obtained by comparing the model output against the optimal threshold:
 
-\[
+$$
 \hat{y}_{test} =
 \begin{cases}
 1 & \text{if } X_{test}\beta \geq t^*\\
 0 & \text{otherwise}
 \end{cases}
-\]
+$$
 
 **Prediction:**
 
@@ -157,7 +160,7 @@ The script will load the data, train the LASSO model using FISTA, determine the 
 
 This laboratory demonstrates the application of proximal optimization methods to a real-world binary classification problem.
 
-The combination of LASSO regularization and FISTA provides an efficient approach to feature selection and model optimization. Despite the limited and imbalanced training dataset, the model achieves a TSS of **0.7294** and an Accuracy of **91%**.
+The combination of LASSO regularization and FISTA provides an efficient approach to feature selection and model optimization. Despite the limited and imbalanced training dataset, the model achieves a TSS of **$0.7294$** and an Accuracy of **$91\%$**.
 
 Most importantly, the model correctly predicts the occurrence of the significant M6.5 solar flare recorded on April 13, 2013, demonstrating its ability to generalize to an unseen observation.
 
